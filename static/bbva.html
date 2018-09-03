@@ -89,8 +89,8 @@ window.addEventListener('DOMContentLoaded', function() {
 
     function sessionStart() {
         // hide the Agree button so that it cannot be clicked twice
-        var name = document.getElementById('client-name');
-        var email = document.getElementById('client-email');
+        var name = document.getElementById('client-name').value;
+        var email = document.getElementById('client-email').value;
         document.getElementById("ask-info").innerText = "Espere hasta que el asesor se una a la sesión..."
         document.querySelector('#btn-start-session').classList.add('hidden');
         // Create a co-browsing session
