@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>BBVA Co-browsing</title>
+    <style>
+        html,body {
+            background-color: #e9e9e9;
+            -webkit-background-size: auto; /* For WebKit*/
+            -moz-background-size: auto;    /* Mozilla*/
+            -o-background-size: auto;      /* Opera*/
+            background-size: auto;         /* Generic*/
+        }
+
+        h1 {
+            color: #072146;
+            font-family: sans-serif;
+        }
+
+        #form {
+            margin-top: 100px;
+            border-radius: 25px;
+            background-color: #f8cd51;
+            padding: 30px;
+            width: 400px;
+            height: 400px;
+
+        }
+
+        #ask-info {
+            position: relative;
+            color: #04a5a5;
+            top: 100px;
+        }
+
+        .slabtexted {
+            margin-top: 200px;
+        }
+
+        input {
+            border-radius: 3px;
+            border-color: #3c3c3c;
+        }
+
+    </style>
+
+</head>
+
+<body class="slabtexted">
+
+    <center>
+    <h1>Bienvenido a BBVA Co-browsing</h1>
+    <div id="form">
+        <img itemprop="logo" src="static/bbvalogo.png" alt="BBVA®" style="width: 125px;">
+            <h2 id="ask-info" style="font-family: sans-serif;">Por favor ingrese su información</h2>
+            <div id="inner-form">
+                <p id="input-title">Nombre completo</p>
+                <input type="text" id="client-name" name="name">
+                <p id="input-title">Dirección de correo electrónico</p>
+                <input type="text" id="client-email" name="email">
+                <button type="button" id="btn-start-session-session">Enviar</button>
+            </div>
+        </div>
+
+
+<script>
+(function(s,u,r,f,l,y){s[f]=s[f]||{init:function(){s[f].q=arguments}};
+l=u.createElement(r);y=u.getElementsByTagName(r)[0];l.async=1;
+l.src='https://surfly.com/surfly.js';y.parentNode.insertBefore(l,y);})
+(window,document,'script','Surfly');
+
+
+var settings = {
+    widgetkey:'0c17c102b943457a82838fe64a5a0a0d',
+    hide_until_agent_joins: true,
+    docked_only: true,
+    follower_redirect_url: 'https://www.bbva.es/bancapersonal/index.jsp'
+};
+
+window.addEventListener('DOMContentLoaded', function() {
+  Surfly.init(settings, function(init) {
+        if (init.success && !Surfly.isInsideSession) {
+              Surfly.session()
+                // .on('session_started', function(session, event) {
+                //    // send the pin to the current session
+                document.querySelector('#btn-start-session').addEventListener('click', sessionStart);
+                //  })
+        }
+   });
+
+    function sessionStart() {
+        // hide the Agree button so that it cannot be clicked twice
+        var name = document.getElementById('client-name');
+        var email = document.getElementById('client-email');
+        document.getElementById("ask-info").innerText = "Espere hasta que el asesor se una a la sesión..."
+        document.querySelector('#btn-start-session').classList.add('hidden');
+        // Create a co-browsing session
+        Surfly.session()
+            // When the session is started, show the session PIN so that it can be passed to the helpdesk agent
+            .on('viewer_joined', function(session, event) {
+                    // if a viewer joins and they are the first then redirect to home page
+                if(event.count==1) {
+                    session.relocate("https://www.bbva.es/bancapersonal/index.jsp");
+                }
+            })
+            .on('session_started', function(session, event) {}).startLeader(null, {name, email});
+    }
+});
+</script>
+
+</body>
+</html>
+
