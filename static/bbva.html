@@ -37,8 +37,8 @@
         }
 
         input {
+            border: 1px solid #ffffff;
             border-radius: 3px;
-            border-color: #3c3c3c;
         }
 
     </style>
@@ -50,7 +50,7 @@
     <center>
     <h1>Bienvenido a BBVA Co-browsing</h1>
     <div id="form">
-        <img itemprop="logo" src="static/bbvalogo.png" alt="BBVA®" style="width: 125px;">
+        <img itemprop="logo" src="../bbvalogo.png" alt="BBVA®" style="width: 125px;">
             <h2 id="ask-info" style="font-family: sans-serif;">Por favor ingrese su información</h2>
             <div id="inner-form">
                 <p id="input-title">Nombre completo</p>
@@ -92,7 +92,7 @@ window.addEventListener('DOMContentLoaded', function() {
         var name = document.getElementById('client-name').value;
         var email = document.getElementById('client-email').value;
         document.getElementById("ask-info").innerText = "Espere hasta que el asesor se una a la sesión..."
-        document.querySelector('#btn-start-session').classList.add('hidden');
+        document.querySelector('#inner-form').classList.add('hidden');
         // Create a co-browsing session
         Surfly.session()
             // When the session is started, show the session PIN so that it can be passed to the helpdesk agent
